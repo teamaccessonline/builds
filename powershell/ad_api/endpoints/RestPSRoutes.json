@@ -37,11 +37,11 @@
   {
     "RequestType": "POST",
     "RequestURL": "/aduser/create",
-    "RequestCommand": "c:/solutions/RestPS/endPoints/POST/Post-Create-ADUser.ps1"
+    "RequestCommand": "c:/infra/powershell/ad_api/endPoints/POST/Post-Create-ADUser.ps1"
   },
   {
     "RequestType": "GET",
     "RequestURL": "/aduser/create",
-    "RequestCommand": "c:/solutions/RestPS/endPoints/GET/Create-ADUser.ps1"
+    "RequestCommand": "c:/infra/powershell/ad_api/endPoints/GET/Create-ADUser.ps1"
   }
 ]
