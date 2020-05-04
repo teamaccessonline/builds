@@ -2,7 +2,7 @@
 	.DESCRIPTION
 		This script deletes a user account from Active Directory
 	.EXAMPLE
-        deletee-user.ps1 -RequestArgs  useridentity=user3
+        delete-user.ps1 -RequestArgs  useridentity=user3
 	.NOTES
         This will return a status message of Success or Failure
 #>
@@ -13,7 +13,7 @@ param(
 )
  
  if (!$RequestArgs) {
-  return "useriidentity parameter must be supplied in query string. Example https://10.1.20.6/user?useridentity="
+  return "useridentity parameter must be supplied in query string. Example https://10.1.20.6/user?useridentity="
 
  }
 
