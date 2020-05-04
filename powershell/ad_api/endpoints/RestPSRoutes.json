@@ -43,5 +43,27 @@
     "RequestType": "GET",
     "RequestURL": "/aduser/create",
     "RequestCommand": "c:/infra/powershell/ad_api/endPoints/GET/Create-ADUser.ps1"
+  },
+  {
+    "RequestType": "DELETE",
+    "RequestURL": "/user",
+    "RequestCommand": "c:/infra/powershell/ad_api/endPoints/DELETE/delete-user.ps1"
+  },
+  {
+    "RequestType": "GET",
+    "RequestURL": "/addr/available",
+    "RequestCommand": "c:/infra/powershell/ad_api/endPoints/GET/available-address.ps1"
+  },
+  {
+    "RequestType": "POST",
+    "RequestURL": "/addr/checkout",
+    "RequestCommand": "c:/infra/powershell/ad_api/endPoints/POST/checkout-address.ps1"
+  },
+  {
+    "RequestType": "DELETE",
+    "RequestURL": "/addr/checkin",
+    "RequestCommand": "c:/infra/powershell/ad_api/endPoints/DELETE/checkin-address.ps1"
   }
+  
+  
 ]
