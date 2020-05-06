@@ -54,6 +54,11 @@
     "RequestURL": "/addr/available",
     "RequestCommand": "c:/infra/powershell/ad_api/endPoints/GET/available-address.ps1"
   },
+    {
+    "RequestType": "GET",
+    "RequestURL": "/addr/scope-status",
+    "RequestCommand": "c:/infra/powershell/ad_api/endPoints/GET/scope-status.ps1"
+  },
   {
     "RequestType": "POST",
     "RequestURL": "/addr/checkout",
