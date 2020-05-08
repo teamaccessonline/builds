@@ -29,7 +29,7 @@ param(
  
  	$Message = $jsonresponse | Select-Object status, address
  } else {
-    $status = "Fail"
+    $status = "nonexistent"
     $jsonresponse = New-Object -TypeName psobject
     $jsonresponse| Add-Member -MemberType NoteProperty -Name status -Value $status
     $jsonresponse| Add-Member -MemberType NoteProperty -Name address -Value $address
