@@ -68,7 +68,12 @@
     "RequestType": "DELETE",
     "RequestURL": "/addr/checkin",
     "RequestCommand": "c:/infra/powershell/ad_api/endPoints/DELETE/checkin-address.ps1"
-  }
+  },
+  {
+    "RequestType": "POST",
+    "RequestURL": "/aduser/delegation",
+    "RequestCommand": "c:/infra/powershell/ad_api/endPoints/POST/user-delegation-create.ps1"
+  },
   
   
 ]
