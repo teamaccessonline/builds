@@ -74,6 +74,12 @@
     "RequestURL": "/aduser/delegation",
     "RequestCommand": "c:/infra/powershell/ad_api/endPoints/POST/user-delegation-create.ps1"
   },
+  {
+    "RequestType": "POST",
+    "RequestURL": "/dns/",
+    "RequestCommand": "c:/infra/powershell/ad_api/endPoints/POST/create-dns-records.ps1"
+  }
+
   
   
 ]
