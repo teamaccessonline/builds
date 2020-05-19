@@ -3,7 +3,7 @@
 	.DESCRIPTION
 		This script create an IIS Website
 	.EXAMPLES
-				.\create-website.ps1 -Body '{"site_name":"testsite.acme.com", "http_port":"80", "https_port":"443","folder":"header.acme.com", "computer_ip":"10.1.20.6", "authentication": "kerberos" }'
+				.\create-website.ps1 -Body '{"site_name":"solution7.acme.com", "http_port":"80", "https_port":"443","folder":"solution7.acme.com", "computer_ip":"10.1.20.6", "authentication": "saml", "idp_name": "idp.acme.com" }'
 
 	.NOTES
        
@@ -30,10 +30,13 @@ $computer_ip = $newbody.computer_ip
 #Write-Host "Computer IP: $computer_ip"
 $authentication = $newbody.authentication
 #Write-Host "Authentication: $authentication"
+$idp_name = $newbody.idp_name
+#Write-Host "idp_name: $idp_name"
 
 
 $IISPath = "IIS:\AppPools"
 $endpointPath = "C:\infra\powershell\ad_api\endpoints\POST"
+$websitebase = "c:\infra\websites"
 cd $IISPath
 if (Test-Path ".\$site_name") {
  Write-Host "Pool exists."
@@ -46,10 +49,18 @@ if (Test-Path ".\$site_name") {
 
 
 
-  
+Switch ($authentication) {
+	"saml" {
+	Copy-Item -Path $websitebase\simplesamlphptemplate\ -Destination $websitebase\$folder -Recurse
+	Start-Sleep -Seconds 5
+	(Get-Content $websitebase\$folder\config\authsources.php).replace("SITENAME", $site_name) | Set-Content $websitebase\$folder\config\authsources.php
+	(Get-Content $websitebase\$folder\config\authsources.php).replace("IDPNAME", $idp_name) | Set-Content $websitebase\$folder\config\authsources.php
+	(Get-Content $websitebase\$folder\metadata\saml20-idp-remote.php).replace("IDPNAME", $idp_name) | Set-Content $websitebase\$folder\metadata\saml20-idp-remote.php
+	}
+}
  
 
- New-WebSite -Name $site_name -Port $http_port -HostHeader $site_name -PhysicalPath C:\infra\websites\iis\$folder -IPAddress $computer_ip -ApplicationPool $site_name -Force
+ New-WebSite -Name $site_name -Port $http_port -HostHeader $site_name -PhysicalPath $websitebase\$folder -IPAddress $computer_ip -ApplicationPool $site_name -Force
  New-WebBinding -Name $site_name -HostHeader $site_name -IP $computer_ip -Port $https_port -Protocol https
  
 
@@ -57,8 +68,9 @@ Switch ($authentication)
 
 { 
 
-	"none" {Set-WebConfigurationProperty -Filter "/system.webServer/security/authentication/anonymousAuthentication" -Name Enabled -Value True -PSPath IIS:\ -Location "$site_name" }
-
+	"none" {
+		Set-WebConfigurationProperty -Filter "/system.webServer/security/authentication/anonymousAuthentication" -Name Enabled -Value True -PSPath IIS:\ -Location "$site_name"
+	}
 	"kerberos" {
 
 		Set-WebConfigurationProperty -Filter /system.webServer/security/authentication/windowsAuthentication -Name Enabled -Value True -PSPath IIS:\ -Location $site_name 
@@ -67,14 +79,17 @@ Switch ($authentication)
 		Add-WebConfiguration -Filter system.webServer/security/authentication/windowsAuthentication/providers  -Value Negotiate:Kerberos -PSPath IIS:\ -Location $site_name
 		Set-WebConfigurationProperty -Filter /system.webServer/security/authentication/anonymousAuthentication -Name Enabled -Value False -PSPath IIS:\ -Location $site_name 
 		
-	}
-	
+	}	
 	"basic" {
 		Set-WebConfigurationProperty -Filter "/system.webServer/security/authentication/anonymousAuthentication" -Name Enabled -Value False -PSPath IIS:\ -Location "$site_name" 
 		Set-WebConfigurationProperty -Filter "/system.webServer/security/authentication/basicAuthentication" -Name Enabled -Value True -PSPath IIS:\ -Location "$site_name"
 		Set-WebConfigurationProperty -Filter "/system.webServer/security/authentication/basicAuthentication" -Name defaultLogonDomain -Value f5lab.local -PSPath IIS:\ -Location "$site_name"
 		Set-WebConfigurationProperty -Filter "/system.webServer/security/authentication/basicAuthentication" -Name realm -Value F5LAB.LOCAL -PSPath IIS:\ -Location "$site_name"
-		}
+	}
+	"saml" {
+		
+		Set-WebConfigurationProperty -Filter "/system.webServer/security/authentication/anonymousAuthentication" -Name Enabled -Value True -PSPath IIS:\ -Location "$site_name" 
+	}	
 
 
 
