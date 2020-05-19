@@ -3,7 +3,7 @@
 	.DESCRIPTION
 		This script create an IIS Website
 	.EXAMPLES
-				.\create-website.ps1 -Body '{"site_name":"solution7.acme.com", "http_port":"80", "https_port":"443", "computer_ip":"10.1.20.6", "authentication": "saml", "idp_name": "idp.acme.com" }'
+				.\create-website.ps1 -Body '{"site_name":"testapp.acme.com", "http_port":"80", "https_port":"443", "computer_ip":"10.1.20.6", "authentication": "saml", "idp_name": "idp.acme.com" }'
 
 	.NOTES
 		Supports basic,saml, anonymous, and Kerberos configurations.
@@ -96,7 +96,7 @@ Switch ($authentication)
 				Copy-Item -Path $websitebase\simplesamlphptemplate -Destination $websitebase\$site_name -Recurse
 			}
 	
-		Start-Sleep -Seconds 5
+		Start-Sleep -Seconds 3
 		
 		(Get-Content $websitebase\$site_name\config\authsources.php).replace("SITENAME", $site_name) | Set-Content $websitebase\$site_name\config\authsources.php
 		
@@ -135,6 +135,7 @@ Switch ($authentication)
 
 
 	$status = "Fail"
+	$jsonresponse = New-Object -TypeName psobject
 	$jsonresponse| Add-Member -MemberType NoteProperty -Name status -Value $status
 	$jsonresponse| Add-Member -MemberType NoteProperty -Name site_name -Value $site_name
     $jsonresponse| Add-Member -MemberType NoteProperty -Name http_port -Value $http_port
