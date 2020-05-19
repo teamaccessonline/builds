@@ -50,8 +50,8 @@ $app_spn = $newbody.app_spn
             -Reset `
             -NewPassword (ConvertTo-SecureString -AsPlainText "$Password" -Force)
     
-	Set-ADAccountControl -Identity kerbaccount -TrustedToAuthForDelegation $True
-	Set-ADUser -Identity kerbaccount -Add @{'msDS-AllowedToDelegateTo'= @("$app_spn")}
+	Set-ADAccountControl -Identity $sAMAccountName -TrustedToAuthForDelegation $True
+	Set-ADUser -Identity $sAMAccountName -Add @{'msDS-AllowedToDelegateTo'= @("$app_spn")}
     
         $Message = Get-ADUser -Identity $sAMAccountName -Properties * | Select-Object sAMAccountName, userAccountControl, msDS-AllowedToDelegateTo
     }
