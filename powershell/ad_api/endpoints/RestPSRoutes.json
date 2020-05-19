@@ -68,7 +68,33 @@
     "RequestType": "DELETE",
     "RequestURL": "/addr/checkin",
     "RequestCommand": "c:/infra/powershell/ad_api/endPoints/DELETE/checkin-address.ps1"
+  },
+  {
+    "RequestType": "POST",
+    "RequestURL": "/aduser/delegation",
+    "RequestCommand": "c:/infra/powershell/ad_api/endPoints/POST/user-delegation-create.ps1"
+  },
+  {
+    "RequestType": "POST",
+    "RequestURL": "/dns",
+    "RequestCommand": "c:/infra/powershell/ad_api/endPoints/POST/create-dns-records.ps1"
+  },
+  {
+    "RequestType": "DELETE",
+    "RequestURL": "/dns",
+    "RequestCommand": "c:/infra/powershell/ad_api/endPoints/DELETE/delete-dns-records.ps1"
+  },
+  {
+    "RequestType": "POST",
+    "RequestURL": "/website",
+    "RequestCommand": "c:/infra/powershell/ad_api/endPoints/POST/create-website.ps1"
+  },
+  {
+    "RequestType": "DELETE",
+    "RequestURL": "/website",
+    "RequestCommand": "c:/infra/powershell/ad_api/endPoints/DELETE/delete-website.ps1"
   }
+
   
   
 ]
