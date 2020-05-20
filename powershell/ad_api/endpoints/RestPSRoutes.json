@@ -103,6 +103,16 @@
     "RequestType": "DELETE",
     "RequestURL": "/desktop",
     "RequestCommand": "c:/infra/powershell/ad_api/endPoints/DELETE/delete-desktop-files.ps1"
+  },
+  {
+    "RequestType": "DELETE",
+    "RequestURL": "/computer",
+    "RequestCommand": "c:/infra/powershell/ad_api/endPoints/DELETE/computer-spn-delete.ps1"
+  },
+    {
+    "RequestType": "POST",
+    "RequestURL": "/computer",
+    "RequestCommand": "c:/infra/powershell/ad_api/endPoints/POST/computer-spn-create.ps1"
   }
    
   
