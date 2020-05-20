@@ -33,8 +33,9 @@ $computer_ip = $newbody.computer_ip
 #Write-Host "Computer IP: $computer_ip"
 $authentication = $newbody.authentication
 #Write-Host "Authentication: $authentication"
-$idp_name = $newbody.idp_name
-#Write-Host "idp_name: $idp_name"
+
+
+
 
 
 
@@ -87,6 +88,13 @@ Switch ($authentication)
 		Set-WebConfigurationProperty -Filter "/system.webServer/security/authentication/basicAuthentication" -Name realm -Value F5LAB.LOCAL -PSPath IIS:\ -Location "$site_name"
 	}
 	"saml" {
+		$idp_hostname = $newbody.saml.idp_hostname
+		#Write-Host "idp_hostname: $idp_hostname"
+		$idp_entityid = $newbody.saml.idp_entityid
+		#Write-Host "idp_entityid: $idp_entityid"
+		$nameidpolicy = $newbody.saml.nameidpolicy
+		#Write-Host "namepolicyid: $namepolicyid"
+	
 		if(Test-Path $websitebase\$site_name) {
 				Stop-WebSite -Name $site_name
 				Remove-Item $websitebase\$site_name -Recurse -Force
@@ -99,9 +107,11 @@ Switch ($authentication)
 		Start-Sleep -Seconds 3
 		
 		(Get-Content $websitebase\$site_name\config\authsources.php).replace("SITENAME", $site_name) | Set-Content $websitebase\$site_name\config\authsources.php
-		
-		(Get-Content $websitebase\$site_name\config\authsources.php).replace("IDPNAME", $idp_name) | Set-Content $websitebase\$site_name\config\authsources.php
-		(Get-Content $websitebase\$site_name\metadata\saml20-idp-remote.php).replace("IDPNAME", $idp_name) | Set-Content $websitebase\$site_name\metadata\saml20-idp-remote.php
+		(Get-Content $websitebase\$site_name\config\authsources.php).replace("NAMEPOLICY", $nameidpolicy) | Set-Content $websitebase\$site_name\config\authsources.php
+		(Get-Content $websitebase\$site_name\config\authsources.php).replace("IDPENTITYID", $idp_entityid) | Set-Content $websitebase\$site_name\config\authsources.php
+		(Get-Content $websitebase\$site_name\metadata\saml20-idp-remote.php).replace("IDPENTITYID", $idp_entityid) | Set-Content $websitebase\$site_name\metadata\saml20-idp-remote.php
+		(Get-Content $websitebase\$site_name\metadata\saml20-idp-remote.php).replace("IDPHOSTNAME", $idp_hostname) | Set-Content $websitebase\$site_name\metadata\saml20-idp-remote.php
+		(Get-Content $websitebase\$site_name\metadata\saml20-idp-remote.php).replace("NAMEPOLICY", $nameidpolicy) | Set-Content $websitebase\$site_name\metadata\saml20-idp-remote.php
 		
 		New-WebSite -Name $site_name -Port $http_port -HostHeader $site_name -PhysicalPath $websitebase\$site_name\www -IPAddress $computer_ip -ApplicationPool $site_name -Force
 		New-WebBinding -Name $site_name -HostHeader $site_name -IP $computer_ip -Port $https_port -Protocol https
