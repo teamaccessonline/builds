@@ -9,8 +9,8 @@
  */
 
 
-$metadata['IDPNAME'] = array (
-  'entityid' => 'IDPNAME',
+$metadata['IDPENTITYID'] = array (
+  'entityid' => 'IDPENTITYID',
   'contacts' => 
   array (
   ),
@@ -20,12 +20,12 @@ $metadata['IDPNAME'] = array (
     0 => 
     array (
       'Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST',
-      'Location' => 'https://IDPNAME/saml/idp/profile/redirectorpost/sso',
+      'Location' => 'https://IDPHOSTNAME/saml/idp/profile/redirectorpost/sso',
     ),
     1 => 
     array (
       'Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
-      'Location' => 'https://IDPNAME/saml/idp/profile/redirectorpost/sso',
+      'Location' => 'https://IDPHOSTNAME/saml/idp/profile/redirectorpost/sso',
     ),
   ),
   'SingleLogoutService' => 
@@ -33,14 +33,14 @@ $metadata['IDPNAME'] = array (
     0 => 
     array (
       'Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST',
-      'Location' => 'https://IDPNAME/saml/idp/profile/post/sls',
-      'ResponseLocation' => 'https://IDPNAME/saml/idp/profile/post/slr',
+      'Location' => 'https://IDPHOSTNAME/saml/idp/profile/post/sls',
+      'ResponseLocation' => 'https://IDPHOSTNAME/saml/idp/profile/post/slr',
     ),
     1 => 
     array (
       'Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
-      'Location' => 'https://IDPNAME/saml/idp/profile/redirect/sls',
-      'ResponseLocation' => 'https://IDPNAME/saml/idp/profile/redirect/slr',
+      'Location' => 'https://IDPHOSTNAME/saml/idp/profile/redirect/sls',
+      'ResponseLocation' => 'https://IDPHOSTNAME/saml/idp/profile/redirect/slr',
     ),
   ),
   'ArtifactResolutionService' => 
@@ -48,7 +48,7 @@ $metadata['IDPNAME'] = array (
   ),
   'NameIDFormats' => 
   array (
-    0 => 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient',
+    0 => 'NAMEPOLICY',
   ),
   'keys' => 
   array (
