@@ -93,8 +93,17 @@
     "RequestType": "DELETE",
     "RequestURL": "/website",
     "RequestCommand": "c:/infra/powershell/ad_api/endPoints/DELETE/delete-website.ps1"
+  },
+   {
+    "RequestType": "POST",
+    "RequestURL": "/desktop",
+    "RequestCommand": "c:/infra/powershell/ad_api/endPoints/POST/create-desktop-files.ps1"
+  },
+  {
+    "RequestType": "DELETE",
+    "RequestURL": "/desktop",
+    "RequestCommand": "c:/infra/powershell/ad_api/endPoints/DELETE/delete-desktop-files.ps1"
   }
-
-  
+   
   
 ]
