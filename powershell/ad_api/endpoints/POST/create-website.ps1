@@ -28,7 +28,7 @@ import-module webadministration
  	if(Test-Path $websitebase\$site_name) {
 				Stop-WebSite -Name $site_name
 				Remove-Item $websitebase\$site_name -Recurse -Force
-				if(Test-Path $websitebase\$template_number) {
+				if((Test-Path $websitebase\$template_number) -And (!$template_number -ne $null)) {
 					Copy-Item -Path $websitebase\$template_number -Destination $websitebase\$site_name -Recurse
 						return $true
 					} else {
@@ -36,9 +36,9 @@ import-module webadministration
 			
 					}
 		} else {
-				if(Test-Path $websitebase\$template_number) {
-					Write-Host "Template: $template_number"
-					Write-Host "Sitename: $site_name"
+			
+				if((Test-Path $websitebase\$template_number) -And ($template_number -ne $null)) {
+					
 					Copy-Item -Path $websitebase\$template_number -Destination $websitebase\$site_name -Recurse
 						return $true
 					} else {
@@ -136,10 +136,9 @@ $websitebase = "c:\infra\websites"
 		
 			 if(Test-Path IIS:\AppPools\$site_name)
 				{
-					"AppPool is already there"
+
 				} else {
-					"AppPool is not present"
-					"Creating new AppPool"
+
 					New-WebAppPool $site_name -Force
 				}
 		
