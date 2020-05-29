@@ -4,7 +4,7 @@
 		This script deletes a DNS records 
 	.EXAMPLES
 			A Record
-				.\delete-dns-records.ps1 -Body '{"record_type":"a", "hostname":"testapp", "zone":"acme.com", "computer_ip":"10.1.20.150" }'
+				.\delete-dns-records.ps1 -Body '{"record_type":"a", "fqdn":"testapp.acme.com", "computer_ip":"10.1.20.150" }'
 			PTR Record
 	.NOTES
        Deletes all record types
@@ -21,18 +21,31 @@ $newbody = $body | ConvertFrom-Json
 
 $record_type = $newbody.record_type
 #Write-Host "Type: $record_type"
-$hostname = $newbody.hostname
-#Write-Host " HostName: $name"
-$zone = $newbody.zone
-#Write-Host " Zone Name: $zone"
+$fqdn = $newbody.fqdn
+#Write-Host " FQDN: $fqdn"
+
 $computer_ip = $newbody.computer_ip
 #Write-Host "Computer IP: $computer_ip"
 
 $record_type = $record_type.ToUpper()
-$hostname = $hostname.ToLower()
+$fqdn = $fqdn.ToLower()
 $computer_ip = $computer_ip.ToLower()
-$zone = $zone.ToLower()
 
+$fqdn = $fqdn.Split(".")
+
+$hostname = $fqdn[0]
+
+For ($i=1; $i -lt $fqdn.Length; $i++) {
+    
+	if($zone -eq $null) {
+		$zone = $fqdn[$i]
+		Write-Host "Zone: $zone"
+	} else {
+		$zone = $zone + "." + $fqdn[$i]
+		Write-Host "Zone: $zone"
+	}
+	
+}
 
  
  
