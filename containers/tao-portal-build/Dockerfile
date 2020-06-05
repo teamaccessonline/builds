@@ -14,7 +14,6 @@ RUN mkdir /www/sites/files-dev.f5lab.local
 RUN chown -R www:www /var/lib/nginx 
 RUN chown -R www:www /www 
 RUN rm -rf /etc/nginx/nginx.conf
-RUN rm -rf /etc/nginx/conf.d/default.conf
 
 ENV PHP_FPM_USER="www"
 ENV PHP_FPM_GROUP="www"
