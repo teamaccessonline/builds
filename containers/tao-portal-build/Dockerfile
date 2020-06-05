@@ -14,6 +14,7 @@ RUN mkdir /www/sites/files-dev.f5lab.local
 RUN chown -R www:www /var/lib/nginx 
 RUN chown -R www:www /www 
 RUN rm -rf /etc/nginx/nginx.conf
+RUN rm -rf /etc/nginx/conf.d/default.conf
 
 ENV PHP_FPM_USER="www"
 ENV PHP_FPM_GROUP="www"
@@ -96,7 +97,7 @@ COPY ./files-master.f5lab.local.conf /etc/nginx/conf.d
 COPY ./files-dev.f5lab.local.conf /etc/nginx/conf.d
 COPY ./html /www/html
 COPY ./html-master /www/sites/files-master.f5lab.local
-COPY ./html-dev /www/sites/files-master.f5lab.local
+COPY ./html-dev /www/sites/files-dev.f5lab.local
 COPY ./githubfilepull-master.sh /etc/periodic/1min/githubfilepullmaster
 COPY ./githubfilepull-dev.sh /etc/periodic/1min/githubfilepulldev
 COPY ./start_nginx.sh /start_nginx.sh
