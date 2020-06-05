@@ -58,8 +58,8 @@ RUN apk add curl \
     php-curl \
     php-ctype \
 	nodejs \
-	nodejs-npm \
-
+	nodejs-npm
+	
 RUN npm install -g newman
 
 RUN sed -i "s|;listen.owner\s*=\s*nobody|listen.owner = ${PHP_FPM_USER}|g" /etc/php7/php-fpm.d/www.conf 
